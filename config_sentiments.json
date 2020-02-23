@@ -1,0 +1,19 @@
+{
+  "good": [
+    "Good job!",
+    "The World is yours.",
+    "Good job. Proud of you!"
+  ],
+
+  "bad": [
+    "Don't you worry, we'll get em' next time.",
+    "Remember, you can only up from rock bottom.",
+    "Keep in mind - it's not about how hard you get hit. It's about hard you can get hit and keep going."
+  ],
+
+  "neutral" : [
+    "Looks like your teachers need to put more in.",
+    "You seem to have had an uneventful week",
+    "You got another week of no bad news."
+  ]
+}
