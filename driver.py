@@ -13,7 +13,7 @@ class Driver:
     def __init__(self):
         self.scrapper = GenesisScraper()
         self.fileHelp = FileHelper()
-        #self.texter = TextingWrapper()
+        self.texter = TextingWrapper()
         self.file_path = "./data.json"
         self.configHelp = ConfigHandler()
 
@@ -21,7 +21,7 @@ class Driver:
         self.scrapper.login(usr, pwd)
 
     def checkForUpdate(self):
-        self.fileHelp.parseWebData(self.scrapper.getData())
+        self.fileHelp.parseWebData(self.scrapper.getDataFrom("LocalGenesis.htm"))
         self.fileHelp.parseFileData(self.file_path)
 
         text_msg = "\n"
