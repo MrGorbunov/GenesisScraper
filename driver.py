@@ -2,26 +2,30 @@ import sched
 import time
 import getpass
 
+from config_handler import *
+from credentials_fetcher import *
 from genesis_scraper import *
 from file_helper import *
 from texting_wrapper import *
-from config_handler import *
 
 
 class Driver:
 
     def __init__(self):
+        self.configHelp = ConfigHandler()
+        self.file_path = "./data.json"
+
+        self.creds = CredentialFetcher("../credentials.json")
+        self.texter = TextingWrapper(self.creds)
+
         self.scrapper = GenesisScraper()
         self.fileHelp = FileHelper()
-        self.texter = TextingWrapper()
-        self.file_path = "./data.json"
-        self.configHelp = ConfigHandler()
 
     def login(self, usr, pwd):
         self.scrapper.login(usr, pwd)
 
     def checkForUpdate(self):
-        self.fileHelp.parseWebData(self.scrapper.getDataFrom("LocalGenesis.htm"))
+        self.fileHelp.parseWebData(self.scrapper.getData())
         self.fileHelp.parseFileData(self.file_path)
 
         text_msg = "\n"
@@ -94,11 +98,14 @@ if __name__ == '__main__':
     s = sched.scheduler(time.time, time.sleep)
     d = Driver()
 
-    d.login(getpass.getpass(prompt="User:"), getpass.getpass())
+    try:
+        d.login(d.creds.genesisUser, d.creds.genesisPass)
 
-    def periodicCall(sc):
-        d.checkForUpdate()
-        s.enter(d.configHelp.getDelay(), 1, periodicCall, (sc,))
+        def periodicCall(sc):
+            d.checkForUpdate()
+            s.enter(d.configHelp.getDelay(), 1, periodicCall, (sc,))
 
-    s.enter(0, 1, periodicCall, (s,))
-    s.run()
+        s.enter(0, 1, periodicCall, (s,))
+        s.run()
+    finally:
+        d.scrapper.close()
