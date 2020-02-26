@@ -1,6 +1,6 @@
-#Genesis Scraper
+# Genesis Scraper
 
-##Run Down
+## Run Down
 
 This program scrapes grades and sends text notifications about any changes. Was created solo
 by Michael Gorbunov at HackJA 2020.
@@ -15,7 +15,7 @@ runtime. This repo uses version 80 of chromedriver.
 
 
 
-##Testing Locally
+## Testing Locally
 Grades don't change often enough to really be testable. For this reason, there is a
 Genesis-sourced .htm file in the repo. To scrape from it instead of the online Genesis, go
 to _driver.py_ and change the following:
@@ -27,9 +27,9 @@ change line 24  ```.getData()``` to ```.getDataFrom("LocalGenesis.htm)```
 
 
 
-##.jsons
+## .jsons
 
-####config.json
+#### config.json
 _delay_: Specifies the internal between scrapes. Parses one letter which can be S, M, H, D, or W
 corresponding to seconds, minutes, hours, days, or weeks
 
@@ -39,11 +39,11 @@ grades since last text
 _recap mode_: Instead sending only updates, will send all grades showing their change from
 last text. Implied that _delay_ should be high (1 W), because it texts with every scrape
 
-####config_sentiments.json
+#### config_sentiments.json
 Stores messages to be sent based on change in grades. Will only be used if _sentimental messages_
 is turned on.
 
-####data.json
+#### data.json
 The data from the last scrape, stored in json for far easier parsing.
 
 
